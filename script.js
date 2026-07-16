@@ -400,7 +400,7 @@ const PROJECT_DETAILS = {
   },
   sportsapparel: {
     title: 'Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company',
-    category: 'Mobile',
+    category: 'Mobile · Web',
     year: '2025',
     description: 'A cross-platform mobile and eCommerce app for a leading UAE sports-apparel retailer (GMG), with real-time Salesforce integration, an omnichannel browser-based storefront, and multi-region, multilingual shopping across the UAE, Qatar, Saudi Arabia, and Kuwait.',
     problem: 'A leading Gulf sports-apparel retailer needed to sell across multiple regions with localized catalogs, pricing, and languages, while keeping orders and customer support synchronized with their Salesforce systems for a single, reliable workflow.',
@@ -456,7 +456,7 @@ const PROJECT_DETAILS = {
   },
   paircraft: {
     title: 'PairCraft — Virtual Styling Solution',
-    category: 'Mobile',
+    category: 'Mobile · Web',
     year: '2025',
     description: 'A UK-based virtual-styling e-commerce platform where shoppers mix and match pieces to assemble outfits that reflect their personal style — delivered as cross-platform React Native apps for the App Store and Play Store alongside a modern web store.',
     problem: 'PairCraft wanted to enter the digital shopping marketplace with a modern mobile app on both the App Store and Play Store, alongside a stylish, cutting-edge website — built on best-in-class, scalable technology that could handle user growth without compromising the shopping experience.',
@@ -471,7 +471,7 @@ const PROJECT_DETAILS = {
   },
   beautyconcierge: {
     title: 'The Beauty Concierge — Ecommerce App For Beauty Products',
-    category: 'Web',
+    category: 'Mobile · Web',
     year: '2025',
     description: 'An e-commerce platform for certified, globally-compliant beauty products, delivered as both a React Native app and a React web store, with personalized skincare regimens generated from custom skin-type and concern surveys.',
     problem: 'The client wanted to stand out in a crowded beauty market by giving shoppers a seamless, personalized purchasing experience across both a mobile app and a full website — with flexible payment options and a variety of delivery methods.',
@@ -531,7 +531,7 @@ const PROJECT_DETAILS = {
   },
   summarist: {
     title: 'Summarist — Article Summarizer',
-    category: 'AI/LLM',
+    category: 'AI/LLM · Web',
     year: '2025',
     description: 'A web tool that condenses long-form articles into key takeaways using LLMs, with multi-language output, shareable links, and a personal reading queue.',
     problem: 'Long-form content takes time most readers do not have, but existing summarizers either lost nuance or surfaced trivia rather than the substance.',
