@@ -419,7 +419,7 @@ const PROJECT_DETAILS = {
   },
   equinewelfare: {
     title: 'Equine registration platform for tracking racehorses’ welfare',
-    category: 'Web',
+    category: 'Web · Mobile',
     year: '2025',
     description: 'A role-based equine registration platform where veterinarians, trainers, farriers, and owners record a racehorse’s health, training sessions, and events — bringing transparency and clear accountability to horse care. Users create detailed horse profiles, upload media, schedule activities, and track expenses.',
     problem: 'Critical information about valuable racehorses was poorly managed and scattered, leaving owners exposed to fraud and scams in an expensive, prestigious industry. There was no single trusted record of a horse’s health, care, and activity that multiple professionals could contribute to.',
