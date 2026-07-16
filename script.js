@@ -376,6 +376,21 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  beautyconcierge: {
+    title: 'The Beauty Concierge — Ecommerce App For Beauty Products',
+    category: 'Web',
+    year: '2025',
+    description: 'An e-commerce platform for certified, globally-compliant beauty products, delivered as both a React Native app and a React web store, with personalized skincare regimens generated from custom skin-type and concern surveys.',
+    problem: 'The client wanted to stand out in a crowded beauty market by giving shoppers a seamless, personalized purchasing experience across both a mobile app and a full website — with flexible payment options and a variety of delivery methods.',
+    approach: 'Built a cross-platform storefront with a React Native app and a React JS website backed by a MySQL data layer. Custom skincare surveys profile each shopper by skin type, brand, category, and concern to drive personalized product recommendations, while multiple payment integrations and delivery options streamline the checkout experience.',
+    results: [
+      'Unified shopping experience across a React Native mobile app and a responsive React web store',
+      'Personalized skincare recommendations driven by custom skin-type, brand, category, and concern surveys',
+      'Flexible checkout with multiple payment integrations and a variety of delivery options',
+    ],
+    builtWith: ['react', 'js', 'mysql'],
+    images: ['./assets/The Beauty Concierge - Ecommerce App For Beauty Products/main-img.png'],
+  },
   taskflow: {
     title: 'TaskFlow — Team Collaboration Platform',
     category: 'Web',
