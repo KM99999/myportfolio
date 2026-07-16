@@ -22,7 +22,7 @@
 
   --radius: 14px;
   --radius-sm: 10px;
-  --max-w: 1800px;
+  --max-w: 1280px;
 
   --shadow-glow: 0 0 30px rgba(184, 107, 255, .12);
 
@@ -235,7 +235,7 @@ main { padding-top: 40px; }
 .section {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 80px 48px;
+  padding: 80px 24px;
 }
 
 .section__title {
@@ -395,8 +395,6 @@ main { padding-top: 40px; }
 .timeline {
   position: relative;
   padding-left: 32px;
-  max-width: 1600px;
-  margin: 0 auto;
 }
 .timeline::before {
   content: '';
