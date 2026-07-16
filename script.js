@@ -376,6 +376,28 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  homeschooling: {
+    title: 'Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic',
+    category: 'Web',
+    year: '2025',
+    description: 'Optimized an Adobe Commerce site for a homeschooling pioneer — reorganizing content and navigation, adding real-time enrollment chat, simplifying menus, and centralizing data — to boost relevant traffic, course enrollments, and revenue.',
+    problem: 'A homeschooling pioneer’s Adobe Commerce site was disorganized and hard to navigate, with confusing menus and slow answers to parents’ enrollment questions — costing relevant traffic, enrollments, and revenue.',
+    approach: 'Reorganized content into a clear, user-friendly structure with streamlined enrollment, added real-time chat to answer parents’ queries instantly, reduced submenus for faster decisions, and centralized data from multiple sources for sharper insight and execution. Built on Adobe Commerce with the Adobe Experience Platform, Apache Solr search, and an Angular, Node.js, and MySQL stack.',
+    results: [
+      'Reorganized content and navigation drove a significant rise in relevant traffic, course enrollments, and revenue',
+      'Real-time enrollment chat resolved parents’ queries instantly, speeding decisions and building trust',
+      'Fewer, concise submenus reduced confusion and made the site faster to navigate',
+      'Centralized data from multiple sources for better analysis and more precise strategy execution',
+    ],
+    builtWith: ['swift', 'java', 'angular', 'nodejs', 'mysql'],
+    builtWithText: ['Apache Solr', 'Android', 'Adobe Experience Platform'],
+    images: [
+      './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Adobe-Commerce-for-LMS-Platform.webp',
+      './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Significant-Rise-In-Relevant-Traffic-After-Content-Organization.webp',
+      './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Implemented-Chat-For-Smoother-Enrollments.webp',
+      './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Reduced-Submenus-For-More-User-Clarity.webp',
+    ],
+  },
   sportsapparel: {
     title: 'Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company',
     category: 'Mobile',
