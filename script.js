@@ -376,6 +376,25 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  sportsapparel: {
+    title: 'Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company',
+    category: 'Mobile',
+    year: '2025',
+    description: 'A cross-platform mobile and eCommerce app for a leading UAE sports-apparel retailer (GMG), with real-time Salesforce integration, an omnichannel browser-based storefront, and multi-region, multilingual shopping across the UAE, Qatar, Saudi Arabia, and Kuwait.',
+    problem: 'A leading Gulf sports-apparel retailer needed to sell across multiple regions with localized catalogs, pricing, and languages, while keeping orders and customer support synchronized with their Salesforce systems for a single, reliable workflow.',
+    approach: 'Built a cross-platform mobile app alongside a browser-based storefront, integrated in real time with Salesforce Sales Cloud and Service Cloud for order management and customer support. Delivered multi-region, multilingual (English and Arabic) eCommerce with separate catalogs and custom pricing rules for the UAE, Qatar, Saudi Arabia, and Kuwait markets.',
+    results: [
+      'Reached roughly 100K AED average daily revenue via real-time Salesforce (Sales + Service Cloud) syncing for order management and support',
+      'Cross-platform, browser-based selling expanded reach for a UAE top-30 brand into an omnichannel presence, lifting engagement and sales',
+      'Multi-region, multilingual (English & Arabic) eCommerce with separate catalogs and pricing for UAE, Qatar, Saudi Arabia, and Kuwait',
+    ],
+    builtWith: [],
+    builtWithText: ['CRM', 'Development Languages', 'API'],
+    images: [
+      './assets/Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company/mobile-app-development.webp',
+      './assets/Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company/digital-marketing.webp',
+    ],
+  },
   equinewelfare: {
     title: 'Equine registration platform for tracking racehorses’ welfare',
     category: 'Web',
