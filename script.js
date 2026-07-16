@@ -376,6 +376,21 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  paircraft: {
+    title: 'PairCraft — Virtual Styling Solution',
+    category: 'Mobile',
+    year: '2025',
+    description: 'A UK-based virtual-styling e-commerce platform where shoppers mix and match pieces to assemble outfits that reflect their personal style — delivered as cross-platform React Native apps for the App Store and Play Store alongside a modern web store.',
+    problem: 'PairCraft wanted to enter the digital shopping marketplace with a modern mobile app on both the App Store and Play Store, alongside a stylish, cutting-edge website — built on best-in-class, scalable technology that could handle user growth without compromising the shopping experience.',
+    approach: 'Built cross-platform mobile apps and a responsive web store on a shared React Native and MySQL foundation. A mix-and-match styling experience lets shoppers assemble complete outfit ensembles, turning a conventional shopping trip into a personalized, digital-stylist journey.',
+    results: [
+      'Unified virtual-styling experience across iOS, Android, and web',
+      'Mix-and-match outfit builder that assembles personalized wardrobe ensembles',
+      'Scalable architecture designed to support growing user demand',
+    ],
+    builtWith: ['react', 'androidstudio', 'apple', 'mysql'],
+    images: [],
+  },
   beautyconcierge: {
     title: 'The Beauty Concierge — Ecommerce App For Beauty Products',
     category: 'Web',
