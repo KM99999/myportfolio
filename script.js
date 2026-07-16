@@ -389,8 +389,8 @@ const PROJECT_DETAILS = {
       'Fewer, concise submenus reduced confusion and made the site faster to navigate',
       'Centralized data from multiple sources for better analysis and more precise strategy execution',
     ],
-    builtWith: ['swift', 'java', 'angular', 'nodejs', 'mysql'],
-    builtWithText: ['Apache Solr', 'Android', 'Adobe Experience Platform'],
+    builtWith: ['swift', 'java', 'angular', 'nodejs', 'mysql', 'androidstudio'],
+    builtWithText: [{ a: 'Solr', n: 'Apache Solr' }, { a: 'AEP', n: 'Adobe Experience Platform' }],
     images: [
       './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Adobe-Commerce-for-LMS-Platform.webp',
       './assets/Optimized Homeschooling Pioneer With Adobe Commerce To Boost Relevant Traffic/Significant-Rise-In-Relevant-Traffic-After-Content-Organization.webp',
@@ -411,7 +411,7 @@ const PROJECT_DETAILS = {
       'Multi-region, multilingual (English & Arabic) eCommerce with separate catalogs and pricing for UAE, Qatar, Saudi Arabia, and Kuwait',
     ],
     builtWith: [],
-    builtWithText: ['CRM', 'Development Languages', 'API'],
+    builtWithText: [{ a: 'CRM', n: 'CRM' }, { a: 'Dev', n: 'Development Languages' }, { a: 'API', n: 'API' }],
     images: [
       './assets/Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company/mobile-app-development.webp',
       './assets/Developed a Mobile App with Cutting-Edge Features for Leading Sports Apparel Company/digital-marketing.webp',
@@ -429,8 +429,8 @@ const PROJECT_DETAILS = {
       'Role-based access for veterinarians, trainers, farriers, and owners/co-owners keeps records accurate and accountable',
       'Rich horse profiles with media galleries, a scheduling calendar, comments, and expense tracking for full care transparency',
     ],
-    builtWith: [],
-    builtWithText: ['ASP.NET Core', 'AWS Lambda', 'Azure', 'Azure DevOps CI/CD', 'Azure SQL DB Server', 'Azure Storage', 'MS SQL Server', 'React Redux', 'TypeScript', 'WordPress Bedrock'],
+    builtWith: ['dotnet', 'aws', 'azure', 'redux', 'ts', 'wordpress'],
+    builtWithText: [{ a: 'ADO', n: 'Azure DevOps CI/CD' }, { a: 'ASQL', n: 'Azure SQL DB Server' }, { a: 'AZS', n: 'Azure Storage' }, { a: 'MSSQL', n: 'MS SQL Server' }],
     images: ['./assets/Equine registration platform for tracking racehorses’ welfare/4ece-4455-8004-f8943a1d180e.mp4'],
   },
   traveladventure: {
@@ -446,7 +446,7 @@ const PROJECT_DETAILS = {
       'CSS-based image zoom delivered a smooth, visually appealing experience that kept users engaged longer and lifted booking rates',
     ],
     builtWith: ['html', 'css', 'js', 'php', 'wordpress', 'mysql'],
-    builtWithText: ['WP Engine'],
+    builtWithText: [{ a: 'WPE', n: 'WP Engine' }],
     images: [
       './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot1.png',
       './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot2.png',
@@ -797,7 +797,7 @@ const PROJECT_DETAILS = {
     el.icons.innerHTML         = (p.builtWith || []).map(t =>
       '<img src="https://skillicons.dev/icons?i=' + esc(t) + '" alt="' + esc(t) + '" loading="lazy"/>'
     ).join('') + (p.builtWithText || []).map(t =>
-      '<span class="modal__tech-text" style="display:inline-flex;align-items:center;padding:4px 10px;font-size:12px;font-weight:600;line-height:1;border:1px solid var(--border-strong);border-radius:6px;color:var(--text-dim);white-space:nowrap;">' + esc(t) + '</span>'
+      '<span class="tech-fallback" title="' + esc(t.n) + '">' + esc(t.a) + '</span>'
     ).join('');
 
     images = Array.isArray(p.images) ? p.images.slice() : [];
