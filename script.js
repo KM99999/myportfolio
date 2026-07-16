@@ -389,7 +389,7 @@ const PROJECT_DETAILS = {
       'Scalable architecture designed to support growing user demand',
     ],
     builtWith: ['react', 'androidstudio', 'apple', 'mysql'],
-    images: [],
+    images: ['./assets/PairCraft- Virtual Styling Solution/main-img.png'],
   },
   beautyconcierge: {
     title: 'The Beauty Concierge — Ecommerce App For Beauty Products',
