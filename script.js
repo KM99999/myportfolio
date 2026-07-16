@@ -376,6 +376,27 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  traveladventure: {
+    title: 'A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure',
+    category: 'Web',
+    year: '2025',
+    description: 'A tour-booking platform that connects travelers to their next adventure — with dynamic currency conversion for localized pricing, a fast custom search, and smooth CSS-based image zoom. Built on WordPress with a PHP and MySQL backend, hosted on WP Engine.',
+    problem: 'A growing tour operator needed a booking site that could serve an international audience, keep search fast and accurate as the tour catalog expanded, and present tours in an engaging way that turns browsing into bookings.',
+    approach: 'Built on WordPress with custom PHP and MySQL and deployed on WP Engine managed hosting. Added dynamic currency conversion for localized pricing, a custom search tuned for speed and relevance, and a CSS-based image zoom for immersive tour browsing — all delivered on the front end with HTML5, CSS3, and JavaScript.',
+    results: [
+      'Dynamic currency conversion let users see prices in their own currency, improving satisfaction, retention, and booking conversion rates',
+      'Custom search drastically reduced search times while returning more accurate, relevant results even as the catalog grew',
+      'CSS-based image zoom delivered a smooth, visually appealing experience that kept users engaged longer and lifted booking rates',
+    ],
+    builtWith: ['html', 'css', 'js', 'php', 'wordpress', 'mysql'],
+    builtWithText: ['WP Engine'],
+    images: [
+      './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot1.png',
+      './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot2.png',
+      './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot3.png',
+      './assets/A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure/screenshot4.png',
+    ],
+  },
   paircraft: {
     title: 'PairCraft — Virtual Styling Solution',
     category: 'Mobile',
@@ -714,6 +735,8 @@ const PROJECT_DETAILS = {
     el.results.innerHTML       = (p.results || []).map(r => '<li>' + esc(r) + '</li>').join('');
     el.icons.innerHTML         = (p.builtWith || []).map(t =>
       '<img src="https://skillicons.dev/icons?i=' + esc(t) + '" alt="' + esc(t) + '" loading="lazy"/>'
+    ).join('') + (p.builtWithText || []).map(t =>
+      '<span class="modal__tech-text" style="display:inline-flex;align-items:center;padding:4px 10px;font-size:12px;font-weight:600;line-height:1;border:1px solid var(--border-strong);border-radius:6px;color:var(--text-dim);white-space:nowrap;">' + esc(t) + '</span>'
     ).join('');
 
     images = Array.isArray(p.images) ? p.images.slice() : [];
