@@ -376,6 +376,22 @@ function applyLocale(locale) {
 //  Add `images: ['./assets/foo-1.png', ...]` to enable the gallery.
 // =====================================================================
 const PROJECT_DETAILS = {
+  equinewelfare: {
+    title: 'Equine registration platform for tracking racehorses’ welfare',
+    category: 'Web',
+    year: '2025',
+    description: 'A role-based equine registration platform where veterinarians, trainers, farriers, and owners record a racehorse’s health, training sessions, and events — bringing transparency and clear accountability to horse care. Users create detailed horse profiles, upload media, schedule activities, and track expenses.',
+    problem: 'Critical information about valuable racehorses was poorly managed and scattered, leaving owners exposed to fraud and scams in an expensive, prestigious industry. There was no single trusted record of a horse’s health, care, and activity that multiple professionals could contribute to.',
+    approach: 'Built a role-based system where professionals (veterinarians, trainers, farriers) and owners or co-owners sign up under a defined role and contribute records against each horse. Owners set up detailed horse profiles with media uploads, a scheduling calendar, activity feeds, comments, and expense tracking — creating a transparent, auditable history for every horse.',
+    results: [
+      'A single source of truth for each horse’s health status, training, and events, contributed to by every authorized professional',
+      'Role-based access for veterinarians, trainers, farriers, and owners/co-owners keeps records accurate and accountable',
+      'Rich horse profiles with media galleries, a scheduling calendar, comments, and expense tracking for full care transparency',
+    ],
+    builtWith: [],
+    builtWithText: ['ASP.NET Core', 'AWS Lambda', 'Azure', 'Azure DevOps CI/CD', 'Azure SQL DB Server', 'Azure Storage', 'MS SQL Server', 'React Redux', 'TypeScript', 'WordPress Bedrock'],
+    images: ['./assets/Equine registration platform for tracking racehorses’ welfare/4ece-4455-8004-f8943a1d180e.mp4'],
+  },
   traveladventure: {
     title: 'A Dynamic, User-Friendly Platform, Connecting Travelers to Their Next Adventure',
     category: 'Web',
@@ -705,14 +721,18 @@ const PROJECT_DETAILS = {
       el.thumbs.innerHTML = '';
       return;
     }
-    el.imageArea.innerHTML = '<img src="' + esc(images[idx]) + '" alt="" />';
+    el.imageArea.innerHTML = /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(images[idx])
+      ? '<video src="' + esc(images[idx]) + '" controls playsinline preload="metadata" style="max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.5);"></video>'
+      : '<img src="' + esc(images[idx]) + '" alt="" />';
     el.counter.textContent = idx + 1;
     el.total.textContent = images.length;
     el.prev.disabled = idx === 0;
     el.next.disabled = idx === images.length - 1;
     el.thumbs.innerHTML = images.map((src, i) =>
       '<button type="button" class="modal__thumb ' + (i === idx ? 'is-active' : '') +
-      '" data-idx="' + i + '"><img src="' + esc(src) + '" alt=""/></button>'
+      '" data-idx="' + i + '">' + (/\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(src)
+        ? '<video src="' + esc(src) + '" muted preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block;"></video>'
+        : '<img src="' + esc(src) + '" alt=""/>') + '</button>'
     ).join('');
     el.thumbs.querySelectorAll('.modal__thumb').forEach(b => {
       b.addEventListener('click', () => {
