@@ -601,10 +601,7 @@ const PROJECT_DETAILS = {
       'Deployed in a single Docker compose stack for on-prem installs',
     ],
     builtWith: ['python', 'fastapi', 'nextjs', 'ts', 'docker'],
-    images: [
-      './assets/VisionTrack — Real-Time Object Detection/visiontrack-1.gif',
-      './assets/VisionTrack — Real-Time Object Detection/visiontrack-2.gif',
-    ],
+    images: ['./assets/RetailVision — Footfall & Shelf Analytics/retailvision-1.gif'],
   },
   retailvision: {
     title: 'RetailVision — Footfall & Shelf Analytics',
@@ -619,7 +616,10 @@ const PROJECT_DETAILS = {
       'Cut manual camera-review time per store from ~12 hours per week to under 3',
     ],
     builtWith: ['python', 'fastapi', 'nextjs', 'ts', 'docker'],
-    images: ['./assets/RetailVision — Footfall & Shelf Analytics/retailvision-1.gif'],
+    images: [
+      './assets/VisionTrack — Real-Time Object Detection/visiontrack-1.gif',
+      './assets/VisionTrack — Real-Time Object Detection/visiontrack-2.gif',
+    ],
   },
   matchmingle: {
     title: 'MatchMingle — Interest-based Dating',
