@@ -256,7 +256,7 @@ main { padding-top: 40px; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  align-items: start;
+  align-items: stretch;
 }
 .hero__text p {
   color: var(--text-dim);
@@ -323,7 +323,8 @@ main { padding-top: 40px; }
   position: relative;
   width: 100%;
   max-width: 580px;
-  aspect-ratio: 1 / 1;
+  flex: 1 1 auto;
+  min-height: 460px;
   border-radius: var(--radius);
   background: var(--bg-card);
   padding: 0;
@@ -1112,6 +1113,7 @@ body.modal-open { overflow: hidden; }
 @media (max-width: 960px) {
   .hero__grid { grid-template-columns: 1fr; gap: 40px; }
   .hero__media { order: -1; position: static; }
+  .frame { flex: none; aspect-ratio: 1 / 1; min-height: 0; }
   .grid--3 { grid-template-columns: repeat(2, 1fr); }
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
   .footer__grid { grid-template-columns: 1fr 1fr; }
