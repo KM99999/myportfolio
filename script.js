@@ -101,55 +101,6 @@ const I18N = {
     'footer.rights': 'Todos os direitos reservados.',
   },
 
-  'pt-PT': {
-    'nav.about': 'Sobre',
-    'nav.experience': 'Experiência',
-    'nav.projects': 'Projetos',
-    'nav.skills': 'Competências',
-    'nav.contact': 'Contacto',
-    'ui.language': 'Idioma',
-
-    'hero.p1': 'Produção e integrações de IA.',
-    'hero.p2': 'Liderou o desenvolvimento de aplicações empresariais utilizando React, Next.js, Node.js, Python, TypeScript e infraestruturas de cloud modernas (AWS, GCP, Vercel) com pipelines de CI/CD seguros.',
-    'hero.contributions': 'Principais contributos incluem:',
-    'hero.b1': 'Conceção de plataformas SaaS multi-tenant com dashboards, sistemas de pagamento, análises e controlo de acesso baseado em funções.',
-    'hero.b2': 'Desenvolvimento de funcionalidades com IA, como chatbots inteligentes, pipelines RAG e agentes de IA personalizados utilizando OpenAI e LangChain.',
-    'hero.b3': 'Integração de fluxos de trabalho de automatização com Zapier, n8n, Make e soluções de API personalizadas.',
-    'hero.b4': 'Conceção de sistemas backend escaláveis utilizando PostgreSQL, MySQL, MongoDB e Redis.',
-    'hero.b5': 'Desenvolvimento de APIs RESTful e GraphQL seguras, otimizadas para desempenho e facilidade de manutenção.',
-    'hero.b6': 'Implementação de estratégias de implementação inspiradas em MLOps para monitorização, escalabilidade e fiabilidade.',
-    'hero.p3': 'Contributo significativo para produtos SaaS nos setores de fintech, saúde, jurídico e imobiliário, garantindo comunicação fluida, alinhamento com os objetivos de negócio e impacto mensurável.',
-    'hero.quote': 'Focado no desenvolvimento de produtos digitais seguros, escaláveis e de elevado desempenho que aceleram lançamentos e otimizam a eficiência operacional.',
-
-    'section.experience': 'Experiência Profissional',
-    'section.projects': 'Projetos',
-    'section.skills': 'Competências Técnicas',
-    'section.contact': 'Entre em Contacto',
-
-    'skills.languages': 'Linguagens de Programação',
-    'skills.backend': 'Tecnologias de Backend',
-    'skills.databases': 'Bases de Dados e Cache',
-    'skills.frontend': 'Tecnologias de Frontend',
-    'skills.devops': 'DevOps e Cloud',
-    'skills.testing': 'Testes e Ferramentas',
-
-    'project.period': 'Período:',
-    'project.details': 'Detalhes',
-    'project.viewcode': 'Ver Código',
-    'project.livedemo': 'Demo ao Vivo',
-
-    'contact.cta': 'Tem uma oportunidade ou apenas quer dizer olá? A minha caixa de entrada está aberta.',
-    'contact.btn': 'Diga olá',
-
-    'footer.tagline': 'Full-Stack Developer com paixão por criar soluções inovadoras, escaláveis e de elevado desempenho.',
-    'footer.linksTitle': 'Ligações',
-    'footer.about': 'Sobre',
-    'footer.experience': 'Experiência',
-    'footer.projects': 'Projetos',
-    'footer.skills': 'Competências',
-    'footer.rights': 'Todos os direitos reservados.',
-  },
-
   es: {
     'nav.about': 'Sobre',
     'nav.experience': 'Experiencia',
@@ -203,11 +154,10 @@ const I18N = {
 const TYPEWRITER_BY_LOCALE = {
   en:      ['Full Stack Developer', 'Software Engineer', 'Problem Solver'],
   'pt-BR': ['Desenvolvedor Full Stack', 'Engenheiro de Software', 'Solucionador de Problemas'],
-  'pt-PT': ['Programador Full Stack', 'Engenheiro de Software', 'Solucionador de Problemas'],
   es:      ['Desarrollador Full Stack', 'Ingeniero de Software', 'Solucionador de Problemas'],
 };
 
-const FLAG_BY_LOCALE = { en: 'gb', 'pt-BR': 'br', 'pt-PT': 'pt', es: 'es' };
+const FLAG_BY_LOCALE = { en: 'gb', 'pt-BR': 'br', es: 'es' };
 
 // ===== Typewriter (restartable, race-safe) =====
 let typewriterTimer = null;
@@ -250,7 +200,8 @@ function startTypewriter(words) {
 
 // ===== Apply locale =====
 function applyLocale(locale) {
-  const dict = I18N[locale] || I18N.en;
+  if (!I18N[locale]) locale = 'en';
+  const dict = I18N[locale];
   document.documentElement.setAttribute('lang', locale);
   localStorage.setItem('lang', locale);
 
