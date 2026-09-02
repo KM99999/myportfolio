@@ -801,3 +801,258 @@ const PROJECT_DETAILS = {
 
 // ===== Initial locale =====
 applyLocale(localStorage.getItem('lang') || 'en');
+
+// =====================================================================
+//  CODE FILM — vertical strips of code running behind the page like
+//  frames on a reel: sprocket holes, frame dividers, a little gate
+//  weave and flicker.
+//
+//  The reel is rendered once to an offscreen tile (one loop of LINES,
+//  seamless top to bottom) and each strip just blits that tile at its
+//  own offset — so a frame costs a dozen drawImage calls, not a
+//  thousand fillText calls. The tile is rebuilt only on a theme or DPR
+//  change. Pauses when the tab is hidden; renders one static frame
+//  under prefers-reduced-motion.
+// =====================================================================
+(function codeFilm() {
+  const canvas = document.getElementById('codeFilm');
+  if (!canvas || !canvas.getContext) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  // Short lines only — anything wider than a strip gets cut off.
+  const LINES = [
+    '@RestController',
+    'class OrderController {',
+    '  @GetMapping("/api/orders")',
+    '  public List<Order> all() {',
+    '    return service.findAll();',
+    '  }',
+    '}',
+    '',
+    '// Redis cache layer',
+    'const cache = new Redis(url);',
+    'await cache.set(key, json, 300);',
+    '',
+    '// RAG pipeline',
+    'const docs = await store.query({',
+    '  embedding, topK: 8,',
+    '});',
+    'const answer = await llm.chat({',
+    '  messages, tools, stream: true,',
+    '});',
+    '',
+    'export function useTheme() {',
+    '  const [t, setT] = useState();',
+    '  useEffect(() => hydrate(), []);',
+    '  return [t, setT];',
+    '}',
+    '',
+    'type Project = {',
+    '  id: string;',
+    '  stack: Stack[];',
+    '};',
+    '',
+    'def summarize(text: str) -> str:',
+    '    chunks = split(text, 1200)',
+    '    return join(map(fn, chunks))',
+    '',
+    'SELECT id, name FROM users',
+    '  WHERE active = true',
+    '  ORDER BY created_at DESC;',
+    '',
+    'docker build -t api:latest .',
+    'kubectl rollout deploy/api',
+    '',
+    '// 99.9% uptime, 2M+ events/mo',
+    'metrics.observe("latency", ms);',
+    '',
+  ];
+
+  const KEYWORDS = /^(public|private|static|class|return|const|let|var|await|async|new|export|import|from|function|type|interface|def|if|else|for|while|true|false|null|void|extends|implements|SELECT|FROM|WHERE|ORDER|BY|DESC)$/;
+
+  const FONT_PX     = 12;
+  const LINE_H      = 20;
+  const STRIP_W     = 300;
+  const STRIP_GAP   = 30;
+  const PAD_X       = 26;   // text inset — clears the sprocket column
+  const SPR_W       = 8;
+  const SPR_H       = 12;
+  const FRAME_EVERY = 7;    // frame divider every N lines
+  const FONT = FONT_PX + 'px ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+
+  const SPAN = LINES.length * LINE_H;
+  // Sprockets have to close the loop exactly or the tile seam shows a
+  // stutter, so snap the pitch to the nearest divisor of SPAN.
+  const SPR_PITCH = SPAN / Math.max(1, Math.round(SPAN / 30));
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  let strips = [], tokens = null, pal = null, tile = null, tileDpr = 0;
+  let w = 0, h = 0, dpr = 1, raf = null, last = 0, t = 0, resizeTimer = null;
+
+  // ===== tokenizing (once — x offsets cached in CSS px) =====
+  function tokenize(line) {
+    if (/^\s*(\/\/|#)/.test(line)) return [{ t: 'com', text: line }];
+    const re = /(\s+)|("[^"]*"|'[^']*')|(\d+(?:\.\d+)?%?)|([A-Za-z_$][\w$]*)|([^\sA-Za-z_$\d"']+)/g;
+    const out = [];
+    let m;
+    while ((m = re.exec(line))) {
+      if (m[1])      out.push({ t: 'ws',  text: m[1] });
+      else if (m[2]) out.push({ t: 'str', text: m[2] });
+      else if (m[3]) out.push({ t: 'num', text: m[3] });
+      else if (m[4]) out.push({ t: KEYWORDS.test(m[4]) ? 'kw'
+                                : /^\s*\(/.test(line.slice(re.lastIndex)) ? 'fn' : 'txt', text: m[4] });
+      else           out.push({ t: 'pun', text: m[5] });
+    }
+    return out;
+  }
+
+  function buildTokens() {
+    ctx.font = FONT;
+    tokens = LINES.map(line => {
+      const toks = tokenize(line);
+      let x = 0;
+      for (const tok of toks) { tok.x = x; x += ctx.measureText(tok.text).width; }
+      return toks.filter(tok => tok.t !== 'ws');
+    });
+  }
+
+  function readPalette() {
+    const cs = getComputedStyle(document.documentElement);
+    const a1 = cs.getPropertyValue('--accent-1').trim() || '#14e0c4';
+    const a2 = cs.getPropertyValue('--accent-2').trim() || '#b86bff';
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    pal = {
+      kw:  a2,
+      str: a1,
+      num: a1,
+      fn:    light ? '#5b6472' : '#cdcdd8',
+      com:   light ? '#a2a8b2' : '#585866',
+      txt:   light ? '#7c828c' : '#8e8e9d',
+      pun:   light ? '#a2a8b2' : '#6c6c7a',
+      spr:   light ? 'rgba(0,0,0,.11)'  : 'rgba(255,255,255,.11)',
+      frame: light ? 'rgba(0,0,0,.075)' : 'rgba(255,255,255,.07)',
+    };
+  }
+
+  // One loop of the reel, sized in device pixels so the blit is 1:1.
+  function buildTile() {
+    tile = document.createElement('canvas');
+    tile.width  = Math.round(STRIP_W * dpr);
+    tile.height = Math.round(SPAN * dpr);
+    const c = tile.getContext('2d');
+    c.setTransform(dpr, 0, 0, dpr, 0, 0);
+    c.textBaseline = 'top';
+    c.font = FONT;
+
+    c.fillStyle = pal.spr;
+    for (let y = 0; y < SPAN; y += SPR_PITCH) {
+      c.fillRect(6, y, SPR_W, SPR_H);
+      c.fillRect(STRIP_W - 6 - SPR_W, y, SPR_W, SPR_H);
+    }
+
+    for (let li = 0; li < LINES.length; li++) {
+      const y = li * LINE_H;
+      if (li % FRAME_EVERY === 0) {
+        c.fillStyle = pal.frame;
+        c.fillRect(4, y - 4, STRIP_W - 8, 1);
+        if (y - 4 < 0) c.fillRect(4, SPAN + y - 4, STRIP_W - 8, 1);  // wrap the seam divider
+      }
+      for (const tok of tokens[li]) {
+        c.fillStyle = pal[tok.t] || pal.txt;
+        c.fillText(tok.text, PAD_X + tok.x, y);
+      }
+    }
+    tileDpr = dpr;
+  }
+
+  function buildStrips() {
+    const pitch = STRIP_W + STRIP_GAP;
+    const count = Math.ceil((w + STRIP_GAP) / pitch) + 1;
+    const startX = (w - (count * pitch - STRIP_GAP)) / 2;
+    strips = [];
+    for (let i = 0; i < count; i++) {
+      // Depth staggered so neighbouring strips never run in lockstep.
+      const depth = 0.55 + ((i * 0.37) % 1) * 0.45;
+      strips.push({
+        x: startX + i * pitch,
+        depth,
+        speed: 16 + depth * 26,                  // px/s — nearer strips run faster
+        alpha: 0.35 + depth * 0.5,
+        offset: (((i * 11) % LINES.length) * LINE_H + i * 137) % SPAN,  // rotate the reel per strip
+        phase: i * 1.7,
+      });
+    }
+  }
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = window.innerWidth;
+    h = window.innerHeight;
+    canvas.width  = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (!tokens) buildTokens();
+    if (!tile || tileDpr !== dpr) buildTile();
+    buildStrips();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    for (const s of strips) {
+      const x = s.x + Math.sin(t * 0.9 + s.phase) * 0.6;              // gate weave
+      ctx.globalAlpha = s.alpha * (0.94 + Math.sin(t * 7.3 + s.phase) * 0.06);  // flicker
+      for (let y = -s.offset; y < h; y += SPAN) {
+        ctx.drawImage(tile, x, y, STRIP_W, SPAN);
+      }
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05);   // clamp across tab switches
+    last = now;
+    t += dt;
+    for (const s of strips) s.offset = (s.offset + s.speed * dt) % SPAN;
+    draw();
+    raf = requestAnimationFrame(frame);
+  }
+
+  function start() {
+    if (raf || reduced.matches || document.hidden) return;
+    last = performance.now();
+    raf = requestAnimationFrame(frame);
+  }
+  function stop() {
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+  }
+
+  // Scrolling pulls the film along, so the page feels connected to it.
+  let lastScroll = window.scrollY;
+  window.addEventListener('scroll', () => {
+    const d = window.scrollY - lastScroll;
+    lastScroll = window.scrollY;
+    if (reduced.matches) return;
+    for (const s of strips) s.offset = (((s.offset + d * 0.18 * s.depth) % SPAN) + SPAN) % SPAN;
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { resize(); if (!raf) draw(); }, 150);
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop(); else start();
+  });
+
+  // Follow the theme toggle — repaint the reel in the new palette.
+  new MutationObserver(() => { readPalette(); buildTile(); if (!raf) draw(); })
+    .observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  reduced.addEventListener?.('change', () => { stop(); draw(); start(); });
+
+  readPalette();
+  resize();
+  draw();
+  start();
+})();
